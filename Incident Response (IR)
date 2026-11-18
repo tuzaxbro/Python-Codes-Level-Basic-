@@ -1,0 +1,56 @@
+
+class Incident:
+    def __init__(self, severity, description, status):
+        self.severity = severity
+        self.description = description
+        self.status = status
+    def __str__(self):
+        return f"Severity: {self.severity} | Description: {self.description} | Status: {self.status}"
+    def update_status(self, new_status):
+        self.status = new_status
+
+class Malware(Incident):
+    def __init__(self, severity, description, status, malware_type):
+        super().__init__(severity, description, status)
+        self.malware = malware_type
+    def __str__(self):
+        return f"Severity: {self.severity} | Description: {self.description} | Status: {self.status} | Malware Type: {self.malware}"
+
+class Phishing(Incident):
+    def __init__(self, severity, description, status, email):
+        super().__init__(severity, description, status)
+        self.email = email
+    def __str__(self):
+        return f"Severity: {self.severity} | Description: {self.description} | Status: {self.status} | Phishing Type: {self.email}"
+
+a = [
+    Incident("6/10", "Incident", "Open"),
+    Malware("8/10", "Malware Detected", "In Progress", "Ransomware"),
+    Phishing("3/10", "Fake Email", "Resolved", "Fake Email")
+]
+
+for i in a:
+    print(i)
+
+
+while True:
+    try:
+        b = int(input("Choose 0-2: "))
+        if b not in range(len(a)):
+            print("No incident labelled with that number!")
+            continue
+    except ValueError:
+        print("Numbers only!")
+        continue
+    c = input("Open / In Progress / Resolved: ")
+    if c in ("Open", "In Progress", "Resolved"):
+        pass
+    else:
+        continue
+    a[b].update_status(c)
+    for i in a:
+        print(i)
+    if input("Exit? (Y/N): ") in ("Y", "y"):
+        break
+
+print("= Dashboard Closed =")
